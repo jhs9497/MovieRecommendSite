@@ -21,6 +21,35 @@
       <v-toolbar-title class="font-weight-black headline">
         J&J CINEMA
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn 
+        text
+        color="#FF5252"
+      >
+        Movie
+      </v-btn>
+      <v-btn
+        text
+        color="primary"
+      >
+        Recommand
+      </v-btn>
+      <v-btn
+        text
+        color="green"
+      >
+        Review
+      </v-btn>
+      <router-link to="/login">
+        <v-btn text>
+          Login
+        </v-btn>
+      </router-link>
+       <router-link to="/signup">
+        <v-btn text>
+          Sign up
+        </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-content>
@@ -253,18 +282,12 @@
         </p>
       </div>
     </v-footer>
-  </v-app>
+    </v-app>
+
+
+    <router-view/>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'App',
-  data: () => ({
-  }),
-};
-</script>
-
 
 <style scope>
 </style>
