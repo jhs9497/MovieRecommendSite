@@ -40,12 +40,16 @@
       >
         Review
       </v-btn>
-      <v-btn text>
-        Login
-      </v-btn>
-      <v-btn text>
-        Sgin up
-      </v-btn>
+      <router-link to="/login">
+        <v-btn text>
+          Login
+        </v-btn>
+      </router-link>
+       <router-link to="/signup">
+        <v-btn text>
+          Sign up
+        </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-content>
