@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'movieSelect',
+  name: 'MovieSelect',
 }
 </script>
 

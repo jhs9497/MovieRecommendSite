@@ -1,10 +1,12 @@
 <template>
-  <div></div>
+  <div>
+    Movieall
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'movieAll',
+  name: 'MovieAll',
 }
 </script>
 
