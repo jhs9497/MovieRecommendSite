@@ -1,20 +1,32 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '@/user/Login.vue'
-import Signup from '@/user/Signup.vue'
+import login from '@/user/login.vue'
+import signup from '@/user/signup.vue'
+import MovieAll from '@/movie/MovieAll.vue'
+import MovieSelect from '@/movie/MovieSelect.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/login',
-    name: 'Login',
-    component: Login,
+    name: 'login',
+    component: login,
   },
   {
     path: '/signup',
-    name: 'Signup',
-    component: Signup,
+    name: 'signup',
+    component: signup,
+  },
+  {
+    path: '/movieall',
+    name: 'MovieAll',
+    component: MovieAll,
+  },
+  {
+    path: '/movieSelect',
+    name: 'MovieSelect',
+    component: MovieSelect,
   }
 
 ]
