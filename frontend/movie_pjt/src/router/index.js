@@ -1,22 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import login from '@/user/login.vue'
-import signup from '@/user/signup.vue'
+import Login from '@/user/Login.vue'
+import Signup from '@/user/Signup.vue'
 import MovieAll from '@/movie/MovieAll.vue'
 import MovieSelect from '@/movie/MovieSelect.vue'
+import Home from '@/movie/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/login',
-    name: 'login',
-    component: login,
+    name: 'Login',
+    component: Login,
   },
   {
     path: '/signup',
-    name: 'signup',
-    component: signup,
+    name: 'Signup',
+    component: Signup,
   },
   {
     path: '/movieall',
@@ -24,9 +25,14 @@ const routes = [
     component: MovieAll,
   },
   {
-    path: '/movieSelect',
+    path: '/movieselect',
     name: 'MovieSelect',
     component: MovieSelect,
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
   }
 
 ]
