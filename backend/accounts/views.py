@@ -15,7 +15,7 @@ def signup(request):
     elif request.method == 'POST':
         # Client에서 온 데이터를 받아서
         password = request.data.get('password')
-        password_confirmation = request.data.get('passwordConfirmation')
+        password_confirmation = request.data.get('password_confirmation')
 
         # 패스워드 일치 여부 체크
         if password != password_confirmation:
