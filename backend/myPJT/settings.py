@@ -134,3 +134,11 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080', # vue의 포트번호
     'http://127.0.0.1:8000', # django의 포트번호
 )
+
+
+# 로그인 기능
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

@@ -16,8 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# 로그인 기능
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 urlpatterns = [
+    # 관리자 페이지
     path('admin/', admin.site.urls),
+    # User관리
     path('accounts/', include('accounts.urls')),
+    # Movie 정보 api
     path('api/v1/', include('movies.urls')),
+
+    # 로그인 기능
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
