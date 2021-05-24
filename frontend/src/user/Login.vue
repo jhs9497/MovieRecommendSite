@@ -1,9 +1,6 @@
 <template>
   <div>
-    <v-content>
-      <h1>로그인</h1>
-      <LoginForm/>
-    </v-content>
+    <LoginForm/>
   </div>
 </template>
 
