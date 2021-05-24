@@ -1,9 +1,6 @@
 <template>
   <div>
-    <v-content>
-      <h1>회원가입</h1>
-      <SignupForm/>
-    </v-content>
+    <SignupForm/>
   </div>
 </template>
 

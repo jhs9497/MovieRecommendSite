@@ -48,14 +48,23 @@
       >
         Review
       </v-btn>
-      <router-link :to="{ name: 'Login' }" tag='div'>
+      <!-- 로그인유무에 따라 변하도록 수정했습니당 -->
+      <router-link :to="{ name: 'Login' }" tag='div' v-if="!isAuthen">
         <v-btn text>
           Login
         </v-btn>
       </router-link>
-      <router-link :to="{ name: 'Signup' }" tag='div'>
+      <router-link :to="{ name: 'Signup' }" tag='div' v-if="!isAuthen">
         <v-btn text>
           Sign up
+        </v-btn>
+      </router-link>
+      <v-btn @click="Logout" v-if="isAuthen" text>
+          Logout
+      </v-btn>
+      <router-link :to="{ name: 'MyPage' }" tag='div' v-if="isAuthen">
+        <v-btn text>
+          MyPage
         </v-btn>
       </router-link>
     </v-app-bar>
@@ -65,6 +74,18 @@
 <script>
 export default {
   name: 'MainAppbar',
+  // 로그인한 경우
+  computed: {
+    isAuthen() {
+      return this.$store.getters.isAuthenticated
+    },
+  },
+  methods: {
+    Logout() {
+      this.$store.commit('LOGOUT')
+      this.$router.push('/login')
+    },
+  }
 }
 </script>
 

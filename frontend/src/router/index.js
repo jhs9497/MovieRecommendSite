@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/user/Login.vue'
 import Signup from '@/user/Signup.vue'
+import MyPage from '@/user/MyPage.vue'
 import MovieAll from '@/movie/MovieAll.vue'
 import MovieSelect from '@/movie/MovieSelect.vue'
 import Home from '@/views/Home.vue'
@@ -33,6 +34,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    component: MyPage,
   }
 
 ]
