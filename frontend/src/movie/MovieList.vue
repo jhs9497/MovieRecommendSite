@@ -24,7 +24,7 @@
           </v-row>
         </v-sheet>
       </v-carousel-item>
-      </v-carousel>
+    </v-carousel>
     <div class="row row-cols-1 row-cols-md-4 g-4">
       <div  
         :key="movie.id" 
@@ -62,17 +62,16 @@ export default {
   async created() {
     const url = 'http://127.0.0.1:8000/api/v1/movie/' // 장고의 서버주소
     const response = await this.axios.get(url)
-    console.log(response)
     this.movies = response.data
-    // axios.get(url)
-    // .then(function(response){
-    //   console.log(response);
-    //   this.movies = response.data
-    // })
-    // .catch(function(response){
-    //   console.log(response);
-    // })
-  },
+
+    const axios = require('axios')
+    axios.get(`https://www.lottecinema.co.kr/NLCHS/`)
+    .then(dataa => {
+        console.log(dataa);
+    });
+
+}
+ 
 }
 </script>
 
