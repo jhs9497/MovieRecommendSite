@@ -42,12 +42,14 @@
       >
         Recommand
       </v-btn>
-      <v-btn
-        text
-        color="green"
-      >
-        Review
+      <router-link :to="{name: 'Community'}" tag='div'>
+        <v-btn
+          text
+          color="green"
+        >
+          Review
       </v-btn>
+      </router-link>
       <!-- 로그인유무에 따라 변하도록 수정했습니당 -->
       <router-link :to="{ name: 'Login' }" tag='div' v-if="!isAuthen">
         <v-btn text>

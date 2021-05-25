@@ -1,13 +1,17 @@
 <template>
   <div>
-    <h1>MyPage</h1>
+    <MyPageForm/>
   </div>
 </template>
 
 <script>
+import MyPageForm from '@/user/MyPageForm'
 
 export default {
   name: 'MyPage',
+  components: {
+    MyPageForm,
+  }
 }
 </script>
 

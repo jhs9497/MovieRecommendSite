@@ -71,6 +71,7 @@ def movie_detail(request, movie_id): # movie_id도 가져와서
     return Response(data=serializer.data)
 
 
+# 영화별로 댓글 불러오기
 @api_view(['GET', 'POST'])
 def comment_list(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
@@ -94,6 +95,17 @@ def comment_list(request, movie_id):
             # 해당 movie에 저장
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         # 저장하고 잘 저장됐다는 의미에서 201 보내주기
+
+
+# user별로 댓글 불러오기
+@api_view(['GET'])
+def comment_list_by_user(request, user_id):
+    comment = Comment.objects.filter(comment_user=user_id)
+    # review 중에 movie가 movie인 친구를 선별하여
+    serializer = CommentListSerializer(comment, many=True)
+    # 똑같이 serializer화 하여서 
+    return Response(data=serializer.data)
+    # 보여주기
 
 
 @api_view(['GET', 'PUT', 'DELETE'])

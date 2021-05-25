@@ -34,5 +34,12 @@ def signup(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+@api_view(['POST'])
+def userinfo(request):
+    username = request.data.get('username')
+    users = User.objects.filter(username=username)
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
 
         

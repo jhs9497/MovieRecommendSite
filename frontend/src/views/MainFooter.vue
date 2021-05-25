@@ -7,7 +7,7 @@
     >
       <div class="title font-weight-light grey--text text--lighten-1 text-center">
         <subtitle>
-          &copy; {{ (new Date()).getFullYear() }} - SSAFY 5th. Finala Project - Made with JHS & JSG 🔥
+          &copy; {{ (new Date()).getFullYear() }} - SSAFY 5th. Final Project - Made with JHS & JSG 🔥
         </subtitle>
         <br>
         <p class="font-weight-thin">

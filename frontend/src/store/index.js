@@ -10,12 +10,21 @@ export default new Vuex.Store({
   state: {
     userInfo: {},
     token: localStorage.getItem('token'),
-    // username: localStorage.getItem('state.userInfo.username')
+    username: localStorage.getItem('username'),
+    id: localStorage.getItem('id'),
+    introduce: localStorage.getItem('introduce'),
   },
   getters: {
     isAuthenticated(state){
       const result = state.token ? true : false
       return result
+    },
+    getUserInfo(state) {
+      const username = state.username
+      const id = state.id
+      const introduce = state.introduce
+      var infoArray = [username, id, introduce]
+      return infoArray
     },
   },
   mutations: {
@@ -28,7 +37,18 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.token = '' // vuex 토큰 지우기
       localStorage.removeItem('token') // 로컬스토리지에서도 토큰 지우기
+      state.username = ''
+      localStorage.removeItem('username')
+      state.id = ''
+      localStorage.removeItem('id')
+      state.introduce = ''
+      localStorage.removeItem('introduce')
+      localStorage.removeItem('select_movie')
+      localStorage.removeItem('select_movie_poster')
     },
+    USER_INFO(state, userInfo) {
+      state.userInfo = userInfo
+    }
   },
   actions: { // restAPI랑 연결 ㄱㄱ
     async CREATE_USER({ commit, dispatch }, userInfo) {
@@ -53,6 +73,18 @@ export default new Vuex.Store({
         })
       })
     },
+    async USER_INFO({ commit }, userinfo) {
+      const USER_INFO_URL = '/accounts/userinfo/'
+      const data = userinfo
+      const response = await axios.post(USER_INFO_URL, data)
+
+      localStorage.setItem('username', response.data[0].username)
+      localStorage.setItem('id', response.data[0].id)
+      localStorage.setItem('introduce', response.data[0].introduce)
+      
+      commit('USER_INFO', response.data)
+    }
+
   },
   modules: {
   }

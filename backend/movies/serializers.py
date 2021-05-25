@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, Genre, Comment
+from .models import Movie, Like, Comment
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -21,7 +21,7 @@ class CommentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        read_only_fields = ['comment_users', 'comment_movie', 'comment_movie_id', 'comment_users_id']
+        read_only_fields = ['comment_users', 'comment_movie', 'comment_users_id', 'comment_movie_id']
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -29,4 +29,11 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        read_only_fields = ['comment_users', 'comment_movie', 'comment_movie_id', 'comment_users_id']
+        read_only_fields = ['comment_users', 'comment_movie', 'comment_users_id', 'comment_movie_id']
+
+
+class LikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
+        fields = '__all__'
