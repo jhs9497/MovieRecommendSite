@@ -21,7 +21,7 @@ export default {
     MainFooter,
   },
   created: function () {
-    var router = this.$router;
+    const router = this.$router;
     router.push({name:'Home'})
   }
 }
