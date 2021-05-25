@@ -3,8 +3,10 @@ import VueRouter from 'vue-router'
 import Login from '@/user/Login.vue'
 import Signup from '@/user/Signup.vue'
 import MyPage from '@/user/MyPage.vue'
+import MyPageForm from '@/user/MyPageForm.vue'
 import MovieAll from '@/movie/MovieAll.vue'
 import MovieSelect from '@/movie/MovieSelect.vue'
+import Community from '@/community/Community.vue'
 import Home from '@/views/Home.vue'
 
 Vue.use(VueRouter)
@@ -39,8 +41,17 @@ const routes = [
     path: '/mypage',
     name: 'MyPage',
     component: MyPage,
-  }
-
+  },
+  {
+    path: '/mypageform',
+    name: 'MyPageForm',
+    component: MyPageForm,
+  },
+  {
+    path: '/community',
+    name: 'Community',
+    component: Community,
+  },
 ]
 
 const router = new VueRouter({

@@ -65,6 +65,7 @@ export default {
     onClick() {
       this.$store.dispatch('AUTH_USER', this.userInfo)
       .then(() => {
+        this.$store.dispatch('USER_INFO', this.userInfo)
         this.$router.push('/home')
       })
     }
