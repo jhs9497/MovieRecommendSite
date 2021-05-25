@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <v-content>
-      <MovieList/>
-    </v-content>
-  </div>
+  <v-content style="padding: 0px 0px 0px;">
+    <MovieList/>
+  </v-content>
 </template>
 
 <script>

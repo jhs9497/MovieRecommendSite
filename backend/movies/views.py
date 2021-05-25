@@ -128,3 +128,5 @@ def comment_detail(request, movie_id, comment_id):
         # message 띄워주기
         return Response(data=data, status=status.HTTP_204_NO_CONTENT)
         # HTTP도 No content를 이용한 204로
+
+

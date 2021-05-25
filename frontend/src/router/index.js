@@ -29,6 +29,7 @@ const routes = [
     path: '/movieselect',
     name: 'MovieSelect',
     component: MovieSelect,
+    props: true
   },
   {
     path: '/home',
