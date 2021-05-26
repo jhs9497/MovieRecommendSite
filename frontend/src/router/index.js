@@ -4,10 +4,15 @@ import Login from '@/user/Login.vue'
 import Signup from '@/user/Signup.vue'
 import MyPage from '@/user/MyPage.vue'
 import MyPageForm from '@/user/MyPageForm.vue'
+
 import MovieAll from '@/movie/MovieAll.vue'
 import MovieSelect from '@/movie/MovieSelect.vue'
+
 import Community from '@/community/Community.vue'
 import Home from '@/views/Home.vue'
+
+import PhotoChoice from '@/choice/PhotoChoice'
+import PhotoMovies from '@/choice/PhotoMovies'
 
 Vue.use(VueRouter)
 
@@ -52,6 +57,17 @@ const routes = [
     path: '/community',
     name: 'Community',
     component: Community,
+  },
+  {
+    path: '/photochoice',
+    name: 'PhotoChoice',
+    component: PhotoChoice,
+  },
+  {
+    path: '/photomovies',
+    name: 'PhotoMovies',
+    component: PhotoMovies,
+    props: true
   },
 ]
 

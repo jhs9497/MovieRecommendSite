@@ -3,7 +3,7 @@
     <v-app-bar
       app
       color="white"
-      height="100"
+      height="70"
     >
       <v-avatar
         class="mr-3"
@@ -36,12 +36,14 @@
           Movie
         </v-btn>
       </router-link>
-      <v-btn
-        text
-        color="primary"
-      >
-        Recommand
-      </v-btn>
+      <router-link :to="{name: 'PhotoChoice'}" tag='div'>
+        <v-btn
+          text
+          color="primary"
+        >
+          Recommand
+        </v-btn>
+      </router-link>
       <router-link :to="{name: 'Community'}" tag='div'>
         <v-btn
           text

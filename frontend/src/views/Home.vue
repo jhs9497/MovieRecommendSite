@@ -1,15 +1,24 @@
 <template>
   <div>
     <v-content style="padding: 0px 0px 0px;">
-      <section id="hero">
+      <section 
+        id="hero"
+      >
         <v-row no-gutters>
-          <v-img
+          <!-- <v-img
             gradient="to top right, rgba(255,255,255,0), rgba(25,32,72,.7)"
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
             src="http://www.artinsight.co.kr/data/news/1605/1890085884_c7NKnIHh_ab9216fb52b46505eadbf3abeff09d20.jpg"
+          > -->
+          <v-parallax
+            :height="$vuetify.breakpoint.smAndDown ? 1000 : 600"
+            src="http://www.artinsight.co.kr/data/news/1605/1890085884_c7NKnIHh_ab9216fb52b46505eadbf3abeff09d20.jpg"
+            class="fill-height bottom-gradient"
           >
             <v-theme-provider dark>
-              <v-container fill-height>
+              <v-container 
+                fill-height
+              >
                 <v-row
                   align="center"
                   class="white--text mx-auto"
@@ -30,7 +39,7 @@
                     <br>
 
                     <span
-                      :class="[$vuetify.breakpoint.smAndDown ? 'display-3': 'display-4']"
+                      :class="[$vuetify.breakpoint.smAndDown ? 'display-3': 'display-3']"
                       class="font-weight-black"
                     >
                       지금 보고 싶은 영화
@@ -40,13 +49,15 @@
                     <br>
 
                     <span>
-                      <v-btn
-                        rounded
-                        color="#FF1744"
-                        x-large
-                      >
-                      테스트 하러가기
-                      </v-btn>
+                      <router-link :to="{name: 'PhotoChoice'}" tag='div'>
+                        <v-btn
+                          rounded
+                          color="#FF1744"
+                          x-large
+                        >
+                        테스트 하러가기
+                        </v-btn>
+                      </router-link>
                     </span>
 
                   </v-col>
@@ -61,12 +72,12 @@
                 </v-row>
               </v-container>
             </v-theme-provider>
-          </v-img>
+          </v-parallax>
         </v-row>
       </section>
       <section id="stats">
         <v-parallax
-          :height="$vuetify.breakpoint.smAndDown ? 1000 : 700"
+          :height="$vuetify.breakpoint.smAndDown ? 1000 : 600"
           src="https://an2-img.amz.wtchn.net/image/v2/2dabfab3bb115c61538da3df144f3c77.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKaVlXTnJaM0p2ZFc1a0lqcDdJbklpT2pJMU5Td2laeUk2TWpVMUxDSmlJam95TlRWOUxDSndZWFJvSWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk1EZzFOVEUyTVRRM01qSTVPVFl5TURRaWZRLmgtRzhzcTFMU2p4azctR1lGQzU3X1E0X2pOTGxoUnJkZTliOHlmQTNNeXc"
         >
           <v-theme-provider dark>
@@ -97,14 +108,16 @@
                     <br>
                     <br>
                     <span>
-                      <v-btn
-                        rounded
-                        color="#FF1744"
-                        x-large
-                        class="white--text"
-                      >
-                      영화 검색
-                      </v-btn>
+                      <router-link :to="{name: 'MovieAll'}" tag='div'>
+                        <v-btn
+                          rounded
+                          color="#FF1744"
+                          x-large
+                          class="white--text"
+                        >
+                        영화 검색
+                        </v-btn>
+                      </router-link>
                     </span>
                   </v-col>
                   <v-btn
@@ -122,7 +135,7 @@
       </section>
       <section id="stats2">
         <v-parallax
-          :height="$vuetify.breakpoint.smAndDown ? 1000 : 700"
+          :height="$vuetify.breakpoint.smAndDown ? 1000 : 600"
           src="https://an2-img.amz.wtchn.net/image/v2/83ce547a4ca5667d5ccc3949e0706c08.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKaVlXTnJaM0p2ZFc1a0lqcDdJbklpT2pJMU5Td2laeUk2TWpVMUxDSmlJam95TlRWOUxDSndZWFJvSWpvaUwzWXhMM0kwWW5CeGIzUjVZWG81T0dOclozWm5aWEI0SW4wLnB6OTQ4VzdmelJuM0NSaGw1dnhVX2U2VExzVE5Ia0Yxa1V2MnpJdkJ4ekk"
         >
           <v-container fill-height>
@@ -153,14 +166,16 @@
                 <br>
                 <br>
                 <span>
-                  <v-btn
-                    rounded
-                    color="#FF1744"
-                    x-large
-                    class="white--text"
-                  >
-                    영화 리뷰 검색
-                  </v-btn>
+                  <router-link :to="{name: 'Community'}" tag='div'>
+                    <v-btn
+                      rounded
+                      color="#FF1744"
+                      x-large
+                      class="white--text"
+                    >
+                      영화 리뷰 검색
+                    </v-btn>
+                  </router-link>
                 </span>
               </v-col>
           </v-row>           
@@ -223,5 +238,8 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
+  .bottom-gradient {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 72px);
+  }
 </style>
