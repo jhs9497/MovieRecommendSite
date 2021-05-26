@@ -204,7 +204,7 @@ export default {
       // data table 시작
       headers: [
         {
-          text: '내가 리뷰 쓴 영화목록',
+          text: 'Movie Review That I Wrote',
           align: 'start',
           sortable: false,
           value: 'comment_title',
@@ -257,12 +257,13 @@ export default {
       const myMovie = event.target.innerText
       this.select_movie = myMovie
       localStorage.setItem('select_movie', this.select_movie)
-      this.movies.forEach(function(movie) {
-        if (myMovie === movie.title) {
-          localStorage.setItem('select_movie_poster', movie.poster_path)
-        }
-      })
-    },
+        this.movies.forEach( (movie) =>  {
+          if (myMovie === movie.title) {
+            this.select_movie_poster = movie.poster_path
+            localStorage.setItem('select_movie_poster', movie.poster_path)
+          }
+        })
+      },
     },
   }
 
