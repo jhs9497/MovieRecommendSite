@@ -4,7 +4,10 @@
 
 <script>
 export default {
-  name: 'photoMovies',
+  name: 'PhotoMovies',
+  props: {
+    
+  },
 }
 </script>
 

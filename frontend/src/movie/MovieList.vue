@@ -19,22 +19,23 @@
             align="center"
             justify="center"
           >
-            <div class="display-3">
-              <img class="img-thumbnail" style="height: 600px;" v-bind:src="banner">
+            <div class="displaty-3">
+              <img style="height: 600px;" v-bind:src="banner">
             </div>
           </v-row>
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
 
-    <!-- 3가지 추천 시스템 -->
 
     <!-- 영화정보 -->
-
-    <div class="row row-cols-1 row-cols-md-6 g-4">
+    <div
+      id="movie"
+      class="row row-cols-1 row-cols-md-6 g-4"
+    >
       <div
         v-for="movie in movies"
-        :key="movie.id" 
+        :key="movie.id"
       >
         <router-link :to="{ 
           name: 'MovieSelect', 
@@ -53,31 +54,50 @@
                 <v-card
                   class="mx-auto"
                   max-width="344"
-                  :elevation="hover ? 12 : 2"
+                  :elevation="hover ? 16 : 4"
+                  :class="{ 'on-hover': hover }"
                   shaped
                   @click="clickParams"
                 >
                   <v-img
                     v-bind:src="movie.poster_path"
                     height="300px"
-                  ></v-img>
+                  >
+                    <v-expand-transition>
+                      <div
+                        v-if="hover"
+                        class="d-flex transition-fast-in-fast-out red accent-3 v-card--reveal white--text"
+                        style="height: 30%;"
+                      >
+                        <v-row
+                          style="padding: 0px 10px"
+                        >
+                          <v-col>
+                            <div class="title">
+                              영화 상세정보
+                            </div>
+                            <div>
+                              Click!
+                            </div>
+                          </v-col>
+                        </v-row>
+                      </div>
+                    </v-expand-transition>
+                  </v-img>
                 </v-card>
               </v-hover>
             </div>
         </router-link>
       </div>
     </div>
-    <MovieSelect/>
   </div>
 </template>
 
 <script>
-import MovieSelect from '@/movie/MovieSelect'
 
 export default {
   name: 'MovieList',
   components: {
-    MovieSelect,
   },
   data() {
     return {
@@ -104,6 +124,18 @@ export default {
 
 </script>
 
-<style>
+<style scope>
+  body {
+    background-color: black;
+  }
+  #movie {
+    background-color: black;
+  }
+</style>
 
+<style lang="sass" scoped >
+.v-card.on-hover.theme--dark
+  background-color: rgba(#FFF, 1)
+  >.v-card__text
+    color: #000
 </style>
