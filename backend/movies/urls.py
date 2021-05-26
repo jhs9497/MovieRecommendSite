@@ -9,6 +9,9 @@ urlpatterns = [
 
     # db에 저장된 친구들 serializers통해 불러오기
 
+    # 장르 <-> 가져오기
+    path('movie/genre/<int:genre_id>/', views.movie_genre),
+
     # 전체영화목록 불러오기
     path('movie/', views.movie_list),
     # 개별 영화 하나씩 불러오기

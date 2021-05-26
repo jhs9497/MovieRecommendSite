@@ -37,17 +37,18 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       state.token = '' // vuex 토큰 지우기
-      localStorage.removeItem('token') // 로컬스토리지에서도 토큰 지우기
+      // localStorage.removeItem('token') // 로컬스토리지에서도 토큰 지우기
       state.username = ''
-      localStorage.removeItem('username')
+      // localStorage.removeItem('username')
       state.id = ''
-      localStorage.removeItem('id')
+      // localStorage.removeItem('id')
       state.introduce = ''
-      localStorage.removeItem('introduce')
-      localStorage.removeItem('select_movie')
-      localStorage.removeItem('select_movie_poster')
-      localStorage.removeItem('select_review_movie')
-      localStorage.removeItem('select_review_movie_poster')
+      // localStorage.removeItem('introduce')
+      // localStorage.removeItem('select_movie')
+      // localStorage.removeItem('select_movie_poster')
+      // localStorage.removeItem('select_review_movie')
+      // localStorage.removeItem('select_review_movie_poster')
+      localStorage.clear() // 로컬스토리지 전체 지우기
     },
     USER_INFO(state, userInfo) {
       state.userInfo = userInfo

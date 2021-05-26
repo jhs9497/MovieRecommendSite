@@ -17,11 +17,12 @@
                     color="grey lighten-4"
                     max-width="500"
                     
+                    
                   >
                     <v-img
                       :aspect-ratio="16/9"
                       :src='select_review_movie_poster'
-                      height="650px"
+                      height="585px"
                       
                     >
                       <v-expand-transition>
@@ -107,29 +108,60 @@
 
 
             <v-col>
+              {{ myComment.comment_username }}
             <!-- data table 시작 -->
-            
+              <v-text-field 
+                v-model="search" 
+                append-icon='mdi-magnify' 
+                label='Search'
+                single-line
+                
+                >
+              </v-text-field>
             <v-data-table
               :headers="headers"
               :items="comments"
               class="elevation-1 mx-auto my-12 mr-16"
               height="450px"
-              
+              sort-by="created_at"
+              sort-desc='true'
+              :search="search"
             >
+            <template v-slot:item.comment_user="{ item }">
+              <div v-if="item.comment_username == myComment.comment_username">
+                <v-icon small @click="deleteComment(item.id)" >mdi-delete</v-icon>
+              </div>
+            </template> 
+
             </v-data-table>
-            <v-card width='675px'>
-              <v-textarea 
-                class="mx-auto mr-16"
-                label="악성댓글은 범죄입니다. 이쁜말만 써주세요!" 
-                prepend-icon='mdi-comment-multiple-outline'>
-              </v-textarea>
+            <v-card width='675px' class="mx-auto mr-16" >
+              <div style="padding-top: 10px" class="mr-16">
+                <v-text-field
+                  :rules='rules'
+                  counter='50'
+                  v-model="myComment.content"
+                  class="mx-auto ms-10"
+                  label="악성댓글은 범죄입니다. 이쁜말만 써주세요!" 
+                  prepend-icon='mdi-comment-multiple-outline'>
+                </v-text-field>
+              </div>
+                <v-slider
+                  class="mx-auto mr-16 ms-10"
+                  v-model="myComment.rank"
+                  color="orange"
+                  label="당신의 점수는?"
+                  hint="1점만 더 쓰시죠 ㅎㅎ"
+                  min="1"
+                  max="10"
+                  resolution=0.1
+                  thumb-label
+              ></v-slider>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click.prevent="onClick" type="submit" color="error" >Register</v-btn>
+                <v-btn @click.prevent="createComment" type="submit" color="error" >Register</v-btn>
               </v-card-actions>
             </v-card>
             </v-col>
-            
           </v-row>
         </v-img>
       </v-row>
@@ -138,13 +170,22 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'CommunityForm',
   data() {
     return {
-      // 별점 시작
-      rating: 4.3,
+      // comment 작성 시작
+      myComment: {
+        comment_username: this.$store.state.username,
+        comment_user: this.$store.state.id,
+        rank: '',
+        content: '',
+      },
+      rules: [v => v.length <= 50 || 'Max 50 characters'],
       // data table 시작
+      search: "",
       headers: [
         {
           text: 'Username',
@@ -153,8 +194,9 @@ export default {
           value: 'comment_username',
         },
         { text: 'Content', value: 'content' },
-        { text: 'Rank', value: 'rank' },
+        { text: 'Movie Rating', value: 'rank' },
         { text: 'Created_at', value: 'created_at' },
+        { text: 'Delete', value: 'comment_user'},
       ],
       // data table 끝
       // dialogm 시작
@@ -162,10 +204,13 @@ export default {
       dialog: false,
       // 끝
       user_info: [],
-      comments: [],
+      
+      comments: JSON.parse(localStorage.getItem('comments')),
       movies: [],
       select_review_movie: localStorage.getItem('select_review_movie'),
       select_review_movie_poster: localStorage.getItem('select_review_movie_poster'),
+      // 지금 선택한 무비 id
+      now_movie_id : localStorage.getItem('now_movie_id'),
     }
   },
   async created() {
@@ -174,17 +219,62 @@ export default {
     this.movies = response.data
   },
   methods: {
+      // 댓글 삭제 함수
+      deleteComment() {
+      console.log(event)
+    },
+
+    // comment 생성 함수
+    async createComment() {
+      console.log('여기 앋늘어오냐?>')
+      const CREATE_COMMENT_URL = `http://127.0.0.1:8000/api/v1/movie/${this.now_movie_id}/comment/`
+      const data = this.myComment
+      await axios.post(CREATE_COMMENT_URL, data)
+
+
+
+      // 코멘트 불러오는거 걍 한번더 ㄱㄱ why? crated_at이랑 username도 또 처리해줘야함
+      const comment_url = `http://127.0.0.1:8000/api/v1/movie/${this.now_movie_id}/comment/`
+      const res = await this.axios.get(comment_url)
+      this.comments = res.data
+
+      // this.comments에 상응하는 유저정보도 넣어주기
+      const user_url = 'http://localhost:8000/accounts/alluserinfo/'
+      const result = await this.axios.get(user_url)
+      this.user_info = result.data
+
+      for (let x=0; x<this.comments.length; x++) {
+        this.comments[x].created_at = this.comments[x].created_at.slice(0,10)
+        for (let y=0; y<this.user_info.length; y++) {
+          if (this.comments[x].comment_user === this.user_info[y].id) {
+            this.comments[x]['comment_username'] = this.user_info[y].username
+          }
+        }
+      }
+      localStorage.setItem('comments', JSON.stringify(this.comments))
+
+      //
+
+      this.myComment.content = '' // 저장했으니 내가 쓴 댓글 초기화
+      this.myComment.rank = ''
+      
+    },
+
+
+    // 영화 선택 함수
     async selectMovie() {
       const myMovie = event.target.innerText
       let movie_id = ''
       
       this.select_review_movie = myMovie
-      localStorage.setItem('select_review_movie', this.select_movie)
+      localStorage.setItem('select_review_movie', myMovie)
         this.movies.forEach((movie) => {
           if (myMovie === movie.title) {
             this.select_review_movie_poster = movie.poster_path
             localStorage.setItem('select_review_movie_poster', movie.poster_path)
             movie_id = String(movie.id)
+            this.now_movie_id = movie_id
+            localStorage.setItem('now_movie_id', String(movie.id))
             return false
           }
       })
@@ -205,6 +295,7 @@ export default {
           }
         }
       }
+      localStorage.setItem('comments', JSON.stringify(this.comments))
     },
   },
 }

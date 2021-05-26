@@ -1,5 +1,6 @@
+from django.db.models import fields
 from rest_framework import serializers
-from .models import Movie, Like, Comment
+from .models import Movie, Comment
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -30,10 +31,3 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
         read_only_fields = ['comment_users', 'comment_movie', 'comment_users_id', 'comment_movie_id']
-
-
-class LikeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Like
-        fields = '__all__'

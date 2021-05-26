@@ -10,6 +10,7 @@ from .serializers import(
     CommentListSerializer,
     CommentSerializer,
 )
+from movies import serializers
 
 
 # Create your views here.
@@ -53,6 +54,16 @@ def getMovie(request):
     return
 
 
+# 장르별로 무비 가져오기
+@api_view(['GET'])
+def movie_genre(request, genre_id):
+    movie_genres = Movie.objects.filter(genres=genre_id)
+    serializer = MovieListSerializer(movie_genres, many=True)
+
+    return Response(data=serializer.data)
+
+
+
 @api_view(['GET']) # GET 요청이 올 때
 def movie_list(request):
     movies = Movie.objects.all()
@@ -93,6 +104,7 @@ def comment_list(request, movie_id):
         if serializer.is_valid(raise_exception=True):
             # 유효성 검사 // raise_exception을 통해 잘못된 요청이 들어왔을 때 자동으로 적절한 응답 보내기
             serializer.save(comment_movie=movie)
+            
             # 해당 movie에 저장
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         # 저장하고 잘 저장됐다는 의미에서 201 보내주기

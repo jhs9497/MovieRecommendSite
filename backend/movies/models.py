@@ -28,11 +28,3 @@ class Comment(models.Model):
     # FK
     comment_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     comment_movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-
-
-class Like(models.Model):
-    '''
-    좋아요 기능을 위한 Article과 User모델 사이의 중개 테이블입니다.
-    '''
-    like_movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
-    like_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

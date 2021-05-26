@@ -27,7 +27,12 @@
       </v-carousel-item>
     </v-carousel>
 
-
+    <!-- <div>
+      <button 
+        @click="bringGenre">
+        장르가져오기
+      </button>
+    </div> -->
     <!-- 영화정보 -->
     <div
       id="movie"
@@ -102,6 +107,8 @@ export default {
   data() {
     return {
       movies: [],
+      genres: [],
+      genreMovies: [],
       banners: [
         'https://caching2.lottecinema.co.kr/lotte_image/2021/Voyagers/0518/Voyagers_1920774.jpg',
         'https://caching2.lottecinema.co.kr/lotte_image/2021/Truck/0520/Truck_1920774.jpg',
@@ -118,8 +125,6 @@ export default {
     const response = await this.axios.get(url)
     this.movies = response.data
   },
-  methods: {
-  }
 }
 
 </script>

@@ -167,9 +167,21 @@
               :items="comments"
               class="elevation-1 mx-auto my-12 mr-16"
               height="450px"
-              
+              sort-by="created_at"
+              sort-desc='true'
             >
             </v-data-table>
+
+            <!-- <v-rating
+              :value="this.comments[0].rank/2"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="25"
+              class="pa-2"
+            ></v-rating> -->
+            
           </v-col>
           </v-row>
         </v-img>
@@ -204,13 +216,14 @@ export default {
       // data table 시작
       headers: [
         {
-          text: 'Movie Review That I Wrote',
+          text: 'Movie Title',
           align: 'start',
           sortable: false,
           value: 'comment_title',
         },
         { text: 'Content', value: 'content' },
-        { text: 'Rank', value: 'rank' },
+        { text: 'Movie Rating', value: 'rank' },
+
         { text: 'Created_at', value: 'created_at' },
       ],
       // data table 끝
