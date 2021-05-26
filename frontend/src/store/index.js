@@ -2,6 +2,7 @@ import axios from 'axios'
 import Vuex from 'vuex'
 import Vue from 'vue'
 
+
 axios.defaults.baseURL = 'http://localhost:8000'
 
 Vue.use(Vuex)
@@ -45,6 +46,8 @@ export default new Vuex.Store({
       localStorage.removeItem('introduce')
       localStorage.removeItem('select_movie')
       localStorage.removeItem('select_movie_poster')
+      localStorage.removeItem('select_review_movie')
+      localStorage.removeItem('select_review_movie_poster')
     },
     USER_INFO(state, userInfo) {
       state.userInfo = userInfo

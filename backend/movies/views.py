@@ -32,6 +32,7 @@ def getMovie(request):
         movieURL = f'https://api.themoviedb.org/3/discover/movie?api_key={MYKEY}&language=ko-KR&page={str(n)}'
         allMovie = requests.get(movieURL)
         datas = allMovie.json().get('results')
+        print(datas)
         for data in datas:
             Movie.objects.get_or_create(
                 movie_id = data.get('id'),

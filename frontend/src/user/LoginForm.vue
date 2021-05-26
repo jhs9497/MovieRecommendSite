@@ -4,7 +4,7 @@
       <v-row no-gutters>
         <v-img
           gradient="to top right, rgba(0,0,0,0.8), rgba(0,0,0,0.8)"
-          height="900px"
+          height="700px"
           src="https://i.pinimg.com/originals/21/e2/8f/21e28f6a8c768f83bdfcac28264fcbd0.jpg"
         >
           <v-theme-provider>
