@@ -9,11 +9,13 @@
           :src='select_movie_poster'
         >
         <v-row>
+          <!-- 영화포스터 -->
           <v-col>
             <v-card
               :loading="loading"
               class="mx-16 my-12"
               max-width="474"
+              style="padding-left=50px"
               >
               <template slot="progress">
                 <v-progress-linear
@@ -87,11 +89,9 @@
             </v-card>
           </v-col>
 
-          <v-col>
-            
           <!-- RANK 표현 -->
-
-          <v-card
+          <v-col>
+            <v-card
               max-width="400"
               class="mx-auto my-12 mr-16"
             >
@@ -146,8 +146,8 @@
                 </v-row>
               </v-container>
             </v-card>
-            <!-- data table 시작 -->
-            
+
+          <!-- data table 시작 -->
             <v-data-table
               :headers="headers"
               :items="comments"
@@ -155,7 +155,6 @@
               height="450px"
             >
             </v-data-table>
-
           </v-col>
           </v-row>
         </v-img>
