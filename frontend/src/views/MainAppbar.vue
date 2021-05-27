@@ -27,7 +27,9 @@
         </v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
-      <router-link :to="{name: 'MovieAll'}" tag='div'>
+      <!-- 로그인 유무에 따라 .. 라우터링크에 삼항연산 안되는거 같아서 수작업 했슴다 ㅎㅎ -->
+      <!-- 로그인 시 보이는 부분 -->
+      <router-link :to="{name: 'MovieAll'}" tag='div' v-if="isAuthen">
         <v-btn 
           text
           color="#FF5252"
@@ -35,7 +37,7 @@
           Movie
         </v-btn>
       </router-link>
-      <router-link :to="{name: 'PhotoChoice'}" tag='div'>
+      <router-link :to="{name: 'PhotoChoice'}" tag='div' v-if="isAuthen">
         <v-btn
           text
           color="primary"
@@ -43,23 +45,12 @@
           Recommand
         </v-btn>
       </router-link>
-      <router-link :to="{name: 'Community'}" tag='div'>
+      <router-link :to="{name: 'Community'}" tag='div' v-if="isAuthen">
         <v-btn
           text
           color="green"
         >
           Review
-        </v-btn>
-      </router-link>
-      <!-- 로그인유무에 따라 변하도록 수정했습니당 -->
-      <router-link :to="{ name: 'Login' }" tag='div' v-if="!isAuthen">
-        <v-btn text>
-          Login
-        </v-btn>
-      </router-link>
-      <router-link :to="{ name: 'Signup' }" tag='div' v-if="!isAuthen">
-        <v-btn text>
-          Sign up
         </v-btn>
       </router-link>
       <v-btn @click="Logout" v-if="isAuthen" text>
@@ -70,6 +61,46 @@
           MyPage
         </v-btn>
       </router-link>
+
+
+      <!-- 로그인 X 시 보이는 부분 -->
+      <!-- 잘 안되어서 겉바속촉 느낌으로 껍데기만 두고 안에 주소만 바꿨습니다 ㅎㅎ -->
+      <router-link :to="{name: 'Login'}" tag='div' v-if="!isAuthen">
+        <v-btn 
+          text
+          color="#FF5252"
+        >
+          Movie
+        </v-btn>
+      </router-link>
+      <router-link :to="{name: 'Login'}" tag='div' v-if="!isAuthen">
+        <v-btn
+          text
+          color="primary"
+        >
+          Recommand
+        </v-btn>
+      </router-link>
+      <router-link :to="{name: 'Login'}" tag='div' v-if="!isAuthen">
+        <v-btn
+          text
+          color="green"
+        >
+          Review
+        </v-btn>
+      </router-link>
+
+      <router-link :to="{ name: 'Login' }" tag='div' v-if="!isAuthen">
+        <v-btn text>
+          Login
+        </v-btn>
+      </router-link>
+      <router-link :to="{ name: 'Signup' }" tag='div' v-if="!isAuthen">
+        <v-btn text>
+          Sign up
+        </v-btn>
+      </router-link>
+
     </v-app-bar>
   </div>
 </template>

@@ -31,7 +31,7 @@
                           class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-1 white--text"
                           style="height: 100%;"
                         >
-                          보고싶으면 오른쪽 아래 클릭!
+                          아래 버튼들 Click Click!!
                         </div>
                       </v-expand-transition>
                     </v-img>
@@ -39,13 +39,14 @@
                       class="pt-6"
                       style="position: relative;"
                     >
+
+                  <!-- 버튼 시작 -->
+                    
                       <v-btn
                         absolute
                         color="red"
                         class="white--text"
                         fab
-                        large
-                        right
                         top
                         @click="overlay = ! overlay"
                       >
@@ -90,6 +91,32 @@
                       
                       </v-overlay>
 
+                    <!-- 영화정보로 가는 버튼 -->
+
+                        <router-link :to="{ 
+                          name: 'MovieSelect', 
+                          params: {
+                            title: select_review_movie,
+                            poster: select_review_movie_poster,
+                            release_date: select_review_movie_release_date,
+                            voteavg: select_review_movie_voteavg,
+                            overview: select_review_movie_overview,
+                            
+                            movieid: now_movie_id,
+                          }}"
+                        >
+                        <v-btn
+                          absolute
+                          color="blue"
+                          class="white--text"
+                          fab
+                          top
+                          right
+                        >
+                          <v-icon>more</v-icon>
+                        </v-btn>
+                      </router-link>
+                  
                       <!-- 무비리스트 버튼 시작 -->
                         <v-row justify="center">
                           <v-dialog
@@ -103,39 +130,15 @@
                                 color="orange"
                                 class="white--text"
                                 fab
-                                left
-                                right
                                 top
                                 v-bind="attrs"
                                 v-on="on"
                               >
                                 <v-icon>mdi-playlist-check</v-icon>
                               </v-btn>
-                                <router-link :to="{ 
-                                  name: 'MovieSelect', 
-                                  params: {
-                                    title: movie.title,
-                                    poster: movie.poster_path,
-                                    release_date: movie.release_date,
-                                    voteavg: movie.voteavg,
-                                    overview: movie.overview,
-                                    
-                                    movieid: movie.id,
-                                  }}"
-                                >
-                                <v-btn
-                                  absolute
-                                  color="blue"
-                                  class="white--text"
-                                  fab
-                                  top
-                                  v-bind="attrs"
-                                  v-on="on"
-                                >
-                                  <v-icon>more</v-icon>
-                                </v-btn>
-                              </router-link>
+
                             </template>
+                          
                             <v-card>
                               <v-card-title>Select Movie</v-card-title>
                               <v-divider></v-divider>
@@ -147,7 +150,6 @@
                                   >
                                     <v-list-item-title 
                                       @click="selectMovie($event), dialog = false" class = "movie-list-item">
-                                      
                                       {{ movie.title }}
                                     </v-list-item-title>
                                   </v-list-item>
@@ -272,10 +274,14 @@ export default {
       comments: JSON.parse(localStorage.getItem('comments')),
 
       movies: [],
+
+      // 지금 선택한 무비 정보들
+      select_review_movie_voteavg: localStorage.getItem('select_review_movie_voteavg'),
+      now_movie_id: localStorage.getItem('now_movie_id'),
       select_review_movie: localStorage.getItem('select_review_movie'),
       select_review_movie_poster: localStorage.getItem('select_review_movie_poster'),
-      // 지금 선택한 무비 id
-      now_movie_id : localStorage.getItem('now_movie_id'),
+      select_review_movie_release_date: localStorage.getItem('select_review_movie_release_date'),
+      select_review_movie_overview: localStorage.getItem('select_review_movie_overview'),
     }
   },
   async created() {
@@ -286,7 +292,6 @@ export default {
 
     // 만약 로컬에 저장되어 있는 무비id가 있다면
     if (localStorage.now_movie_id) {
-      console.log('들어오나 ?')
   
       const comment_url = `http://127.0.0.1:8000/api/v1/movie/${localStorage.now_movie_id}/comment/`
       const res = await this.axios.get(comment_url)
@@ -307,7 +312,6 @@ export default {
           }
         }
       }
-      console.log('들어오나 222222222222222?')
       localStorage.setItem('comments', JSON.stringify(this.comments))
     }
   },
@@ -396,9 +400,20 @@ export default {
           if (myMovie === movie.title) {
             this.select_review_movie_poster = movie.poster_path
             localStorage.setItem('select_review_movie_poster', movie.poster_path)
+            
             movie_id = String(movie.id)
             this.now_movie_id = movie_id
             localStorage.setItem('now_movie_id', String(movie.id))
+
+            this.select_review_movie_release_date = movie.release_date
+            localStorage.setItem('select_review_movie_release_date', movie.release_date)
+
+            this.select_review_movie_voteavg = movie.voteavg
+            localStorage.setItem('select_review_movie_voteavg', movie.voteavg)
+
+            this.select_review_movie_overview = movie.overview
+            localStorage.setItem('select_review_movie_overview', movie.overview)
+
             return false
           }
       })
