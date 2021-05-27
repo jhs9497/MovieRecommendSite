@@ -15,9 +15,7 @@
                   <v-card
                     class="mx-auto my-12"
                     color="grey lighten-4"
-                    max-width="500"
-                    
-                    
+                    max-width="500"              
                   >
                     <v-img
                       :aspect-ratio="16/9"
@@ -160,11 +158,10 @@
                           </v-dialog>
                         </v-row>
 
-                      <h3 class="display-1 font-weight-light orange--text mb-2 my-6">
+                      <h1 class="display-1 font-weight-light orange--text mb-2 my-6">
                         {{ select_review_movie }}
-                      </h3>
+                      </h1>
                       <div class="font-weight-light title mb-2">
-                        {{ comments }}
                         이 영화에 대해 한줄평 써주세요! 👉👉👉👉👉👉
                       </div>
                     </v-card-text>
@@ -175,22 +172,30 @@
             <v-col>
               
             <!-- data table 시작 -->
-          <div>
-            <v-data-table
-              :headers="headers"
-              :items="comments"
-              class="elevation-1 mx-auto my-12 mr-16"
-              height="450px"
-            >
-            <template v-slot:item.comment_user="{ item }">
-              <div v-if="item.comment_username == myComment.comment_username">
-                <v-icon small @click="deleteComment(item.id)" >mdi-delete</v-icon>
-              </div>
-            
-            </template> 
+            <div v-if="comments.length">
+              <v-data-table
+                :headers="headers"
+                :items="comments"
+                :loading="loading"
+                class="mytable elevation-1 mx-auto my-12 mr-16"
+                height="450px"
+              >
+              <template v-slot:item.comment_user="{ item }">
+                <div v-if="item.comment_username == myComment.comment_username">
+                  <v-icon small @click="deleteComment(item.id)" >mdi-delete</v-icon>
+                </div>
+              </template> 
+              </v-data-table>
+            </div>
 
-            </v-data-table>
-          </div>
+            <div v-if="!comments.length">
+              <v-data-table
+                :headers="headers"
+                class="elevation-1 mx-auto my-12 mr-16"
+                height="450px"
+              >
+              </v-data-table>
+            </div>
             <v-card width='775px' class="mx-auto mr-16" >
               <div style="padding-top: 10px" class="mr-16">
                 <v-text-field
@@ -253,10 +258,11 @@ export default {
       search: "",
       headers: [
         {
-          text: 'Username',
+          text: 'Movie Review',
           align: 'start',
           sortable: false,
           value: 'comment_username',
+          class: "success--text title"
         },
         { text: 'Content', value: 'content' },
         { text: 'Movie Rating', value: 'rank' },
@@ -450,5 +456,14 @@ export default {
   opacity: .5;
   position: absolute;
   width: 100%;
+}
+.mytable {
+  font-family: Montserrat-Medium;
+  font-size: 36px;
+  color: rgb(230, 39, 39);
+  line-height: 1.4;
+  text-transform: uppercase;
+
+  background-color: #30434a;
 }
 </style>
