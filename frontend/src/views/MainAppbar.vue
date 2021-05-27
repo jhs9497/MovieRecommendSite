@@ -19,9 +19,8 @@
       <router-link :to="{ name: 'Home' }" tag='div'>
         <v-toolbar-title class="font-weight-black headline" tag='btn'>
           <v-btn 
-            text="15"
-            elevation="2"
-            x-large
+            large
+            text
           >
             J&J CINEMA
           </v-btn>
@@ -50,7 +49,7 @@
           color="green"
         >
           Review
-      </v-btn>
+        </v-btn>
       </router-link>
       <!-- 로그인유무에 따라 변하도록 수정했습니당 -->
       <router-link :to="{ name: 'Login' }" tag='div' v-if="!isAuthen">

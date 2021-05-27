@@ -11,10 +11,17 @@ import MovieSelect from '@/movie/MovieSelect.vue'
 import Community from '@/community/Community.vue'
 import Home from '@/views/Home.vue'
 
-import PhotoChoice from '@/choice/PhotoChoice'
-import PhotoMovies from '@/choice/PhotoMovies'
+import PhotoChoice from '@/choice/PhotoChoice.vue'
+import PhotoMovies from '@/choice/PhotoMovies.vue'
 
 Vue.use(VueRouter)
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push(location) {
+
+  return originalPush.call(this, location).catch(err => err)
+
+}
 
 const routes = [
   {

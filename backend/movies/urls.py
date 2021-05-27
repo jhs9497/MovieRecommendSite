@@ -11,6 +11,7 @@ urlpatterns = [
 
     # 장르 <-> 가져오기
     path('movie/genre/<int:genre_id>/', views.movie_genre),
+    path('movie/genre/', views.all_movie_genre),
 
     # 전체영화목록 불러오기
     path('movie/', views.movie_list),
