@@ -16,7 +16,7 @@
                 >
                   <v-img
                     :src="this.poster"
-                    height="700px"
+                    height="665px"
                   />
                 </v-card>
               </v-col>
@@ -64,7 +64,9 @@
                       <v-divider></v-divider>
                       <v-list-item-subtitle
                         style="padding-left: 13px; padding-top: 15px; padding-right: 13px"
-                      >{{ overview }}</v-list-item-subtitle>
+                      >
+                        {{ overview }}
+                      </v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
 
@@ -81,8 +83,6 @@
                     >
                       더보기
                     </v-btn>
-                    <!-- <v-btn :to="{ name : 'Community' }" -->
-                      <!-- 살짝 수정 -->
                     <v-btn 
                       outlined
                       rounded
@@ -123,11 +123,6 @@
 
                 <!-- 현식 만짐 -->
                 <MovieYoutube/>
-                
-              </v-col>
-              <v-col>
-                <div>
-                </div>
               </v-col>
             </v-row>
         </v-container>

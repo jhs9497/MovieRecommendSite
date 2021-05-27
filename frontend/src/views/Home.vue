@@ -240,7 +240,8 @@
         <div class="py-12"></div>
 
         <v-container class="text-center">
-          <h2 class="display-2 font-weight-bold mb-3">ABOUT J&J CENEMA</h2>
+          <h4 class="display-2 font-weight-bold mb-3">About</h4>
+          <h2 class="display-2 font-weight-bold mb-3">J&J CENEMA</h2>
 
           <v-responsive
             class="mx-auto mb-8"
@@ -255,12 +256,55 @@
             class="mx-auto title font-weight-light mb-8"
             max-width="720"
           >
-            Project 소개글
+          <div class="h2 font-weight-black">
+            "세상에 하나밖에 없는 그림기반 영화추천 사이트"
+          </div>
+          <br>
+          <h3>
+            그림을 통해 오늘 기분에 맞는 영화를 추천해드립니다.
+          </h3>
+          <h4>
+            나의 감정도 체크해보고 영화시청 후 리뷰를 작성해보세요!
+          </h4>
           </v-responsive>
-
+          <br>
+          <br>
           <v-avatar
             class="elevation-12 mb-12"
             size="128"
+          >
+            <v-img src="https://blog.kakaocdn.net/dn/cVaSOX/btqD9jVw36X/jHpIEqn2EAk7xdKMMmpEP0/img.png"></v-img>
+          </v-avatar>
+          <v-avatar
+            class="elevation-12 mb-12"
+            size="128"
+          >
+            <v-img src="https://kr.vuejs.org/images/logo.png"></v-img>
+          </v-avatar>
+          <v-avatar
+            class="elevation-12 mb-12"
+            size="128"
+          >
+            <v-img src="https://blog.kakaocdn.net/dn/RX2pR/btqz7z9oXwG/0PYYnK5b3lMxFgw24OJks0/img.png"></v-img>
+          </v-avatar>
+          <v-avatar
+            class="elevation-12 mb-12"
+            size="128"
+          >
+            <v-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/768px-Python-logo-notext.svg.png"></v-img>
+          </v-avatar>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <v-avatar
+            class="elevation-12 mb-12"
+            size="88"
           >
             <v-img src="https://img.kr.news.samsung.com/kr/wp-content/uploads/2021/01/%E2%98%85ssafy_logo.jpg"></v-img>
           </v-avatar>
