@@ -120,17 +120,10 @@
                   </v-expand-transition>
                 </v-card>
                 <br>
-                <v-card
-                  elevation="5"
-                  :class="radius"
-                  height="300px"
-                >
-                <!-- 현식 만짐 -->
-                  <v-container>
-                    <MovieYoutube/>
-                  </v-container>
 
-                </v-card>
+                <!-- 현식 만짐 -->
+                <MovieYoutube/>
+                
               </v-col>
               <v-col>
                 <div>

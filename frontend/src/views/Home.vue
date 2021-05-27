@@ -42,10 +42,11 @@
 
                     <br>
                     <br>
-
+                    
                     <router-link 
                       :to="{name: 'PhotoChoice'}" 
                       tag='div'
+                      v-if="isAuthen"
                     >
                       <span>
                         <v-btn
@@ -57,6 +58,22 @@
                         </v-btn>
                       </span>
                     </router-link>
+                    <router-link 
+                      :to="{name: 'Login'}" 
+                      tag='div'
+                      v-if="!isAuthen"
+                    >
+                      <span>
+                        <v-btn
+                          rounded
+                          color="#FF1744"
+                          x-large
+                        >
+                          테스트 하러가기
+                        </v-btn>
+                      </span>
+                    </router-link>
+
 
                   </v-col>
                   <v-btn
@@ -105,7 +122,27 @@
                     </span>
                     <br>
                     <br>
-                    <router-link :to="{name: 'MovieAll'}" tag='div'>
+                    <router-link 
+                      :to="{name: 'MovieAll'}" 
+                      tag='div'
+                      v-if="isAuthen"
+                    >
+                      <span>
+                        <v-btn
+                          rounded
+                          color="#FF1744"
+                          x-large
+                          class="white--text"
+                        >
+                        영화 검색
+                        </v-btn>
+                      </span>
+                    </router-link>
+                    <router-link 
+                      :to="{name: 'Login'}" 
+                      tag='div'
+                      v-if="!isAuthen"
+                    >
                       <span>
                         <v-btn
                           rounded
@@ -163,7 +200,26 @@
                 </span>
                 <br>
                 <br>
-                <router-link :to="{name: 'Community'}" tag='div'>
+                <router-link 
+                  :to="{name: 'Community'}" 
+                  tag='div'
+                  v-if="isAuthen">
+                  <span>
+                    <v-btn
+                      rounded
+                      color="#FF1744"
+                      x-large
+                      class="white--text"
+                    >
+                      영화 리뷰 검색
+                    </v-btn>
+                  </span>
+                </router-link>
+                <router-link 
+                  :to="{name: 'Login'}" 
+                  tag='div'
+                  v-if="!isAuthen"
+                >
                   <span>
                     <v-btn
                       rounded
@@ -233,6 +289,11 @@
 <script>
 export default {
   name: 'Home',
+  computed: {
+    isAuthen() {
+      return this.$store.getters.isAuthenticated
+    },
+  },
 }
 </script>
 

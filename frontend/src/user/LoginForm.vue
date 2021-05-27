@@ -29,6 +29,7 @@
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
+                  <v-btn @click.prevent="gotoSignup" color="success" left>Signup</v-btn>
                   <v-spacer></v-spacer>
                   <v-btn @click.prevent="onClick" color="info">Login</v-btn>
                 </v-card-actions>
@@ -67,6 +68,9 @@ export default {
       .then(() => {
         this.$router.push('/home')
       })
+    },
+    gotoSignup() {
+      this.$router.push('/signup')
     }
   },
 }
