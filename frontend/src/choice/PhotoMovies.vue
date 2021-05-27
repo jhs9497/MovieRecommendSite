@@ -61,7 +61,7 @@
                           style="margin-right : 10px"
                           elevation = "2"
                         >
-                        새로운 영화추천
+                        장르별 영화
                         </v-btn>
                       </router-link>
                       <router-link :to="{name: 'PhotoChoice'}" tag='div'>
@@ -87,82 +87,134 @@
 
     <!-- 추천영화 -->
     <section>
-      <v-card
-        class="d-flex justify-space-around mb-6"
-        :color="$vuetify.theme.dark ? 'grey darken-3' : 'white'"
-        flat
-        tile
+      <v-img
+        :src="photo_url"
+        height="930px"
+        gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
       >
-        <v-card
-          v-for="movie in randomMovies"
-          :key="movie"
-          class="pa-2"
-          outlined
-          tile
+        <div
+          class="d-flex justify-space-around mb-6"
         >
-          <!-- 포스터 -->
-          <v-card
-            :loading="loading"
-            class="mx-auto my-12"
-            max-width="374"
+          <div
+            class="d-flex justify-space-around mb-6"
+            v-for="movie in randomMovies"
+            :key="movie"
           >
-            <template slot="progress">
-              <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-              ></v-progress-linear>
-            </template>
+            <!-- 포스터 -->
+            <v-card
+              :loading="loading"
+              class="mx-auto my-12"
+              max-width="400"
+            >
+              <template slot="progress">
+                <v-progress-linear
+                  color="deep-purple"
+                  height="10"
+                  indeterminate
+                ></v-progress-linear>
+              </template>
 
-            <v-img
-              height="250"
-              :src="movie.poster_path"
-            ></v-img>
+              <v-img
+                height="550"
+                :src="movie.poster_path"
+              ></v-img>
 
-            <v-card-title>Cafe Badilico</v-card-title>
+              <v-card-title>{{ movie.title }}</v-card-title>
 
-            <v-card-text>
-              <v-row
-                align="center"
-                class="mx-0"
+              <v-card-text
+                class="d-flex flex-row pa-0"
               >
                 <v-rating
-                  :value="4.5"
+                  :value="movie.voteavg/2"
                   color="amber"
                   dense
                   half-increments
                   readonly
-                  size="14"
+                  size="25"
+                  class="pa-2"
                 ></v-rating>
-
-                <div class="grey--text ms-4">
-                  4.5 (413)
+                <div class="grey--text pa-2">
+                  <div style="padding-top: 8px;">
+                    {{ movie.voteavg/2 }}점
+                  </div>
                 </div>
-              </v-row>
+              </v-card-text>
 
-              <div class="my-4 subtitle-1">
-                $ • Italian, Cafe
-              </div>
+              <v-divider class="mx-4"></v-divider>
 
-            </v-card-text>
-
-            <v-divider class="mx-4"></v-divider>
-
-            <v-card-title>Tonight's availability</v-card-title>
-
-            <v-card-actions>
-              <v-btn
-                color="deep-purple lighten-2"
-                text
-                @click="reserve"
+              <v-list-item-subtitle
+                style="padding-left: 13px; padding-top: 15px; padding-right: 13px"
+              >{{ movie.overview }}</v-list-item-subtitle>
+              <br>
+              <v-card-actions
+                class="d-flex justify-space-around mb-6"
               >
-                Reserve
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-          <!-- 포스터 -->
-        </v-card>
-      </v-card>
+                <div>
+                  <router-link :to="{ 
+                    name: 'MovieSelect', 
+                    params: {
+                      title: movie.title,
+                      poster: movie.poster_path,
+                      release_date: movie.release_date,
+                      voteavg: movie.voteavg,
+                      overview: movie.overview,
+                      movieid: movie.id,
+                    }}"
+                    tag="div"
+                  >
+                    <v-btn
+                      text
+                      rounded
+                      outlined
+                      elevation = "2"
+                      color="red"
+                    >
+                      상세정보
+                    </v-btn>
+                  </router-link>
+                </div>
+                <div>
+                  <v-btn 
+                    outlined
+                    rounded
+                    text
+                    elevation = "2"
+                    color="green"
+                    @click="goCommunity(movie)"
+                  >
+                    리뷰 보기
+                  </v-btn>
+                </div>
+              </v-card-actions>
+              <v-expand-transition>
+                <v-card
+                  v-if="reveal"
+                  class="transition-fast-in-fast-out v-card--reveal"
+                  style="height: 100%;"
+                  shaped
+                >
+                  <v-card-text class="pb-0" style="padding-top:80px">
+                    <p class="display-1 text--primary">
+                      OverView
+                    </p>
+                    <p>{{ movie.overview }}</p>
+                  </v-card-text>
+                  <v-card-actions class="pt-0">
+                    <v-btn
+                      text
+                      color="red"
+                      @click="reveal = false"
+                    >
+                      Close
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-expand-transition>
+            </v-card>
+            <!-- 포스터 -->
+          </div>
+        </div>
+      </v-img>
     </section>
     <!-- 추천영화 -->
   </div>
@@ -187,14 +239,28 @@ export default {
       default: '',
     },
   },
+  methods: {
+    goCommunity(movie) {
+      console.log(movie)
+      localStorage.setItem('select_review_movie', movie.title)
+      localStorage.setItem('select_review_movie_poster', movie.poster_path)
+      localStorage.setItem('now_movie_id', movie.movieid)
+      this.$router.push('/community')
+    }
+    // 여기까지
+  },  
   data () {
     return {
       movies: [],
       randomNums: [],
       randomMovies: [],
+      overlay: false,
+      zIndex: 100,
+      reveal: false,
     }
   },
   async created() {
+    localStorage.setItem('select_review_movie', this.title)
     for (let i=0; i < this.photo_genreid.length; i++) {
       const id = String(i)
       const genreId = this.photo_genreid[id]
@@ -218,5 +284,10 @@ export default {
 </script>
 
 <style>
-
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+}
 </style>

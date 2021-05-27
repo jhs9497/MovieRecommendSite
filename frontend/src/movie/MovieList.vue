@@ -46,8 +46,8 @@
             {{ t.name }}
           </v-btn>
         </v-tab>
-            <!-- 영화정보 -->
         
+        <!-- 영화정보 -->
         <v-tab-item
           v-for="n in all_genres"
           :key="n"
@@ -68,7 +68,6 @@
                   release_date: movie.release_date,
                   voteavg: movie.voteavg,
                   overview: movie.overview,
-                  
                   movieid: movie.id,
                 }}"
               >
