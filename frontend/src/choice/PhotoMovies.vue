@@ -74,6 +74,18 @@
                         테스트 다시하기
                         </v-btn>
                       </router-link>
+                      <div>
+                        <v-btn
+                          rounded
+                          color="success"
+                          x-large
+                          style="margin-left : 10px"
+                          elevation = "2"
+                          @click="recommendMovie"
+                        >
+                        추천 다시받기
+                        </v-btn>
+                      </div>
                     </div>
                   </span>
                 </v-col>
@@ -246,8 +258,21 @@ export default {
       localStorage.setItem('select_review_movie_poster', movie.poster_path)
       localStorage.setItem('now_movie_id', movie.movieid)
       this.$router.push('/community')
-    }
-    // 여기까지
+    },
+
+    // 추천 다시받기
+    async recommendMovie() {
+      // randomMovies 초기화하고 재진행
+      this.randomMovies = []
+      const randomNumbers = _.range(1, this.movies.length) // 1부터 영화개수 중 랜덤 숫자 추출
+      this.randomNums = _.sampleSize(randomNumbers, this.photo_genreid.length) // 장르 개수만큼 랜덤숫자 뽑기
+      // 뽑은 랜덤숫자 순서에 해당하는 영화 뽑아서 저장하기
+      for (let i=0; i < this.randomNums.length; i++){
+        const id = String(i)
+        const randomnumber = this.randomNums[id]
+        this.randomMovies.push(this.movies[randomnumber])
+      }
+      }
   },  
   data () {
     return {
@@ -260,7 +285,6 @@ export default {
     }
   },
   async created() {
-    localStorage.setItem('select_review_movie', this.title)
     for (let i=0; i < this.photo_genreid.length; i++) {
       const id = String(i)
       const genreId = this.photo_genreid[id]
