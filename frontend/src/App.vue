@@ -2,17 +2,17 @@
   <v-app id="App">
     <MainAppbar/>
 
-    <v-content>
+    <v-main>
       <router-view/>
-    </v-content>
+    </v-main>
 
     <MainFooter/>
   </v-app>
 </template>
 
 <script>
-import MainAppbar from '@/views/MainAppbar'
-import MainFooter from '@/views/MainFooter'
+import MainAppbar from '@/views/MainAppbar.vue'
+import MainFooter from '@/views/MainFooter.vue'
 
 export default {
   name: 'App',

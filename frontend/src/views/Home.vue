@@ -1,15 +1,10 @@
 <template>
   <div>
-    <v-content style="padding: 0px 0px 0px;">
+    <v-main style="padding: 0px 0px 0px;">
       <section 
         id="hero"
       >
         <v-row no-gutters>
-          <!-- <v-img
-            gradient="to top right, rgba(255,255,255,0), rgba(25,32,72,.7)"
-            :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-            src="http://www.artinsight.co.kr/data/news/1605/1890085884_c7NKnIHh_ab9216fb52b46505eadbf3abeff09d20.jpg"
-          > -->
           <v-parallax
             :height="$vuetify.breakpoint.smAndDown ? 1000 : 600"
             src="http://www.artinsight.co.kr/data/news/1605/1890085884_c7NKnIHh_ab9216fb52b46505eadbf3abeff09d20.jpg"
@@ -48,17 +43,20 @@
                     <br>
                     <br>
 
-                    <span>
-                      <router-link :to="{name: 'PhotoChoice'}" tag='div'>
+                    <router-link 
+                      :to="{name: 'PhotoChoice'}" 
+                      tag='div'
+                    >
+                      <span>
                         <v-btn
                           rounded
                           color="#FF1744"
                           x-large
                         >
-                        테스트 하러가기
+                          테스트 하러가기
                         </v-btn>
-                      </router-link>
-                    </span>
+                      </span>
+                    </router-link>
 
                   </v-col>
                   <v-btn
@@ -107,8 +105,8 @@
                     </span>
                     <br>
                     <br>
-                    <span>
-                      <router-link :to="{name: 'MovieAll'}" tag='div'>
+                    <router-link :to="{name: 'MovieAll'}" tag='div'>
+                      <span>
                         <v-btn
                           rounded
                           color="#FF1744"
@@ -117,8 +115,8 @@
                         >
                         영화 검색
                         </v-btn>
-                      </router-link>
-                    </span>
+                      </span>
+                    </router-link>
                   </v-col>
                   <v-btn
                     class="align-self-end"
@@ -165,8 +163,8 @@
                 </span>
                 <br>
                 <br>
-                <span>
-                  <router-link :to="{name: 'Community'}" tag='div'>
+                <router-link :to="{name: 'Community'}" tag='div'>
+                  <span>
                     <v-btn
                       rounded
                       color="#FF1744"
@@ -175,8 +173,8 @@
                     >
                       영화 리뷰 검색
                     </v-btn>
-                  </router-link>
-                </span>
+                  </span>
+                </router-link>
               </v-col>
           </v-row>           
           </v-container>
@@ -227,7 +225,7 @@
 
         <div class="py-12"></div>
       </section>
-    </v-content>
+    </v-main>
     <router-view/>
   </div>   
 </template>

@@ -9,6 +9,7 @@ from .serializers import(
     MovieSerializer,
     CommentListSerializer,
     CommentSerializer,
+    GenreSerializer,
 )
 from movies import serializers
 
@@ -62,6 +63,12 @@ def movie_genre(request, genre_id):
 
     return Response(data=serializer.data)
 
+# 모든 장르 가져오기
+@api_view(['GET'])
+def all_movie_genre(request):
+    genres = Genre.objects.all()
+    serializer = GenreSerializer(genres, many=True)
+    return Response(data=serializer.data)
 
 
 @api_view(['GET']) # GET 요청이 올 때
