@@ -28,7 +28,7 @@
                 :src='select_movie_poster'
               ></v-img>
 
-              <v-card-title>"{{ username }}"님의 페이지</v-card-title>
+              <v-card-title class="font-weight-black">"{{ username }}"님의 페이지</v-card-title>
 
               <v-card-text>
                 <v-row
@@ -36,12 +36,11 @@
                   class="mx-0"
                 >
                 </v-row>
-
-                <div class="my-4 subtitle-2">
+                <p class="my-4 h3 font-weight-black">
                   INTRODUCE😎
-                </div>
+                </p>
 
-                <div>{{ userintroduce }}</div>
+                <p class="font-weight-black">{{ userintroduce }}</p>
               </v-card-text>
 
               <v-divider class="mx-4"></v-divider>
@@ -81,7 +80,7 @@
                     
                   </v-menu>
                 </div>
-              <div class="text-center my-8 mb-4">
+              <div class="text-center my-3 mb-2">
                 💥{{ select_movie }}💥
               </div>
               <br>
@@ -152,7 +151,7 @@
             <v-data-table
               :headers="headers"
               :items="comments"
-              class="elevation-1 mx-auto my-12 mr-16"
+              class="elevation-1 mx-auto my-12 mr-16 mytable"
               height="450px"
             >
             </v-data-table>
@@ -161,7 +160,6 @@
           </v-row>
         </v-img>
       </v-row>
-
 
     </v-content>
 
@@ -186,14 +184,14 @@ export default {
       // data table 시작
       headers: [
         {
-          text: 'Movie Title',
+          text: 'My Review',
           align: 'start',
           sortable: false,
           value: 'comment_title',
+          class: "success--text title "
         },
         { text: 'Content', value: 'content' },
         { text: 'Movie Rating', value: 'rank' },
-
         { text: 'Created_at', value: 'created_at' },
       ],
       // data table 끝
@@ -270,5 +268,15 @@ export default {
   cursor: pointer;
   background-color: #eee; 
   /* 갖다대면 커서를 바꿈! */
+}
+
+/* 왜 폰트만 바뀌지 ? */
+.mytable {
+  font-family: Montserrat-Medium;
+  font-size: 36px;
+  text-transform: uppercase;
+  color: rgb(230, 39, 39);
+  line-height: 1.4;
+  background-color: black;
 }
 </style>
