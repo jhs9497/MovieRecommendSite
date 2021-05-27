@@ -18,7 +18,6 @@ urlpatterns = [
     path('movie/<int:movie_id>/', views.movie_detail),
 
     # comment 전체 조회 및 추가 
-    # 영화별로 불러오기
     path('movie/<int:movie_id>/comment/', views.comment_list),
     path('movie/<int:movie_id>/comment/<int:comment_id>/', views.comment_detail),
 

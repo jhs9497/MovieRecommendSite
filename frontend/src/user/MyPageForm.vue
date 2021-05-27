@@ -1,27 +1,5 @@
 <template>
   <div>
-    <!-- {{ userInfo }}
-    {{ userInfo }}
-    -->
-    <!-- {{ comments }} -->
-    <!--
-    <div
-      :key="comment.id"
-      v-for="comment in comments"
-    >
-      {{ comment.comment_movie }}
-      {{ comment.content }}
-      {{ comment.rank }}
-      {{ comment.created_at }}
-    </div> 
-
-    {{ movies }}
-    <div
-      :key="movie.id"
-      v-for ="movie in movies"
-    >
-      {{ movie }}
-    </div> -->
     <v-content style="padding: 0px 0px 0px;">
       <v-row no-gutters>
         
@@ -46,11 +24,11 @@
               </template>
 
               <v-img
-                height="400"
+                height="370"
                 :src='select_movie_poster'
               ></v-img>
 
-              <v-card-title>"{{ userInfo[0] }}"님의 페이지</v-card-title>
+              <v-card-title>"{{ username }}"님의 페이지</v-card-title>
 
               <v-card-text>
                 <v-row
@@ -63,7 +41,7 @@
                   INTRODUCE😎
                 </div>
 
-                <div>{{ userInfo[2] }}</div>
+                <div>{{ userintroduce }}</div>
               </v-card-text>
 
               <v-divider class="mx-4"></v-divider>
@@ -79,6 +57,14 @@
                         v-on="on"
                       >
                         Select Poster
+                      </v-btn>
+
+                      <v-btn
+                        color="danger"
+                        dark
+                        @click="gotoReview"
+                      >
+                        Go to Review
                       </v-btn>
                     </template>
                     <v-list>
@@ -199,11 +185,6 @@ import axios from 'axios'
 
 export default {
   name: 'MyPageForm',
-  computed: {
-    userInfo() {
-      return this.$store.getters.getUserInfo
-    },
-  },
   data() {
     return {
       // 리뷰 등급
@@ -231,10 +212,14 @@ export default {
       movies: [],
       select_movie: localStorage.getItem('select_movie'),
       select_movie_poster: localStorage.getItem('select_movie_poster'),
+      mypage_now_movie_id: localStorage.getItem('mypage_now_movie_id'),
+
+      username: this.$store.state.username,
+      userintroduce: this.$store.state.introduce,
     }
   },
   created() {
-    axios.get(`http://localhost:8000/api/v1/movie/${this.userInfo[1]}/comment/user`)
+    axios.get(`http://localhost:8000/api/v1/movie/${this.$store.state.id}/comment/user`)
       .then((res) => {
         this.comments = res.data
         let movie_list = []
@@ -266,6 +251,12 @@ export default {
       .catch(error => console.log(error))
   },
   methods: {
+    gotoReview() {
+      localStorage.setItem('select_review_movie', this.select_movie)
+      localStorage.setItem('select_review_movie_poster', this.select_movie_poster)
+      localStorage.setItem('now_movie_id', this.mypage_now_movie_id)
+      this.$router.push('/community')
+    },
     selectMovie() {
       const myMovie = event.target.innerText
       this.select_movie = myMovie
@@ -274,6 +265,8 @@ export default {
           if (myMovie === movie.title) {
             this.select_movie_poster = movie.poster_path
             localStorage.setItem('select_movie_poster', movie.poster_path)
+            this.mypage_now_movie_id = movie.id
+            localStorage.setItem('mypage_now_movie_id', movie.id)
           }
         })
       },

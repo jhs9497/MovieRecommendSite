@@ -65,8 +65,6 @@ export default {
     onClick() {
       this.$store.dispatch('AUTH_USER', this.userInfo)
       .then(() => {
-        console.log('여기들어와?')
-        this.$store.dispatch('USER_INFO', this.userInfo)
         this.$router.push('/home')
       })
     }

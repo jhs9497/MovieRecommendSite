@@ -59,7 +59,9 @@
                   poster: movie.poster_path,
                   release_date: movie.release_date,
                   voteavg: movie.voteavg,
-                  overview: movie.overview
+                  overview: movie.overview,
+                  
+                  movieid: movie.id,
                 }}"
               >
                 <div class="col">
