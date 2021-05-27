@@ -146,7 +146,9 @@
                             <!-- <v-list-item-title class="headline mb-1">
                               {{ photo.theme}}
                             </v-list-item-title> -->
-                            <v-card-title>{{ photo.theme}}</v-card-title>
+                            <v-card-title class="font-weight-black">
+                              {{ photo.theme}}
+                            </v-card-title>
                             <v-card-text>
                               <v-row>
                                 <br>
@@ -161,7 +163,7 @@
                                   class="grey--text ms-4"
                                 >추천 장르</div>
                                 <div 
-                                  class="white--text ms-4"
+                                  class="white--text ms-4 font-weight-medium"
                                   v-for="genre in photo.genre"
                                   :key="genre"
                                 >
@@ -172,8 +174,8 @@
                               </v-row>
                             </v-card-text>
                             <v-divider class="mx-4"></v-divider>
-                            <v-card-text class="font-weight-regular">
-                              <div>{{ photo.content }}</div>
+                            <v-card-text>
+                              <div class="font-weight-regular">{{ photo.content }}</div>
                             </v-card-text>
                           </v-list-item-content>
 
@@ -211,7 +213,7 @@
                               class="white--text"
                               color="#FF1744"
                               elevation="2"
-                              small
+                              medium
                             >
                               영화추천받기
                             </v-btn>

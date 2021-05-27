@@ -17,7 +17,7 @@
         ></v-img>
       </v-avatar>
       <router-link :to="{ name: 'Home' }" tag='div'>
-        <v-toolbar-title class="font-weight-black headline" tag='btn'>
+        <v-toolbar-title class="font-weight-black" tag='btn'>
           <v-btn 
             large
             text
