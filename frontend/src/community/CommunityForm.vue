@@ -7,7 +7,6 @@
           height="900px"
           src='@/assets/J&J.png'
         >
-        
           <v-row>
             <!-- 영화 페이지 시작 -->
             <v-col>
@@ -21,15 +20,14 @@
                       :aspect-ratio="16/9"
                       :src='select_review_movie_poster'
                       height="615px"
-                      
                     >
                       <v-expand-transition>
                         <div
                           v-if="hover"
-                          class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-1 white--text"
-                          style="height: 100%;"
+                          class="d-flex transition-fast-in-fast-out orange lighten-1 v-card--reveal display-1 white--text"
+                          style="height: 20%;"
                         >
-                          아래 버튼들 Click Click!!
+                          아래 버튼을 Click!
                         </div>
                       </v-expand-transition>
                     </v-img>
@@ -111,7 +109,7 @@
                           top
                           right
                         >
-                          <v-icon>more</v-icon>
+                          <v-icon>info</v-icon>
                         </v-btn>
                       </router-link>
                   
@@ -146,10 +144,14 @@
                                     v-for="(movie) in movies"
                                     :key="movie.id"
                                   >
-                                    <v-list-item-title 
+                                    <v-list-item
                                       @click="selectMovie($event), dialog = false" class = "movie-list-item">
-                                      {{ movie.title }}
-                                    </v-list-item-title>
+                                      <div
+                                        class="font-weight-bold"
+                                      >
+                                        {{ movie.title }}
+                                      </div>
+                                    </v-list-item>
                                   </v-list-item>
                                 </v-list>
                               </v-card-text>
@@ -158,11 +160,11 @@
                           </v-dialog>
                         </v-row>
 
-                      <h1 class="display-1 font-weight-light orange--text mb-2 my-6">
+                      <h1 class="display-1 font-weight-regular orange--text mb-2 my-6">
                         {{ select_review_movie }}
                       </h1>
-                      <div class="font-weight-light title mb-2">
-                        이 영화에 대해 한줄평 써주세요! 👉👉👉👉👉👉
+                      <div class="font-italic title mb-2">
+                        이 영화에 대해 한줄평 써주세요! 👉👉
                       </div>
                     </v-card-text>
                   </v-card>
@@ -196,19 +198,19 @@
               >
               </v-data-table>
             </div>
-            <v-card width='775px' class="mx-auto mr-16" >
+            <v-card width='775px' class="mx-auto mr-16 font-italic" >
               <div style="padding-top: 10px" class="mr-16">
                 <v-text-field
                   :rules='rules'
                   counter='50'
                   v-model="myComment.content"
                   class="mx-auto ms-10"
-                  label="예쁜말만 쓰기!" 
+                  label="예쁜말만 쓰기!.." 
                   prepend-icon='mdi-comment-multiple-outline'>
                 </v-text-field>
               </div>
                 <v-slider
-                  class="mx-auto mr-16 ms-10"
+                  class="mx-auto mr-16 ms-10 font-weight-bold"
                   v-model="myComment.rank"
                   color="orange"
                   label="당신의 점수는?"
