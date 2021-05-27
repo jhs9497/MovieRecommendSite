@@ -22,7 +22,7 @@
                     <v-img
                       :aspect-ratio="16/9"
                       :src='select_review_movie_poster'
-                      height="585px"
+                      height="615px"
                       
                     >
                       <v-expand-transition>
@@ -31,7 +31,7 @@
                           class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-1 white--text"
                           style="height: 100%;"
                         >
-                          보고싶어 ? 오른쪽 아래 클릭!
+                          보고싶으면 오른쪽 아래 클릭!
                         </div>
                       </v-expand-transition>
                     </v-img>
@@ -47,10 +47,48 @@
                         large
                         right
                         top
+                        @click="overlay = ! overlay"
                       >
                         <v-icon>mdi-movie-play</v-icon>
 
                       </v-btn>
+
+                      <v-overlay
+                        :z-index='zIndex'
+                        :value="overlay"
+                      >
+                         <v-card 
+                          
+                         >
+                            
+                            <Yotube/>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                            <v-btn icon>
+                              <v-icon>mdi-heart</v-icon>
+                            </v-btn>
+
+                            <v-btn icon>
+                              <v-icon>mdi-bookmark</v-icon>
+                            </v-btn>
+
+                            <v-btn icon>
+                              <v-icon>mdi-share-variant</v-icon>
+                            </v-btn>
+                            <v-btn
+                              class="white--text"
+                              color="red"
+                              @click="overlay = false"
+                            >
+                              close
+                            </v-btn>  
+                          </v-card-actions>
+
+                        </v-card>
+
+                      
+                      </v-overlay>
 
                       <!-- 무비리스트 버튼 시작 -->
                         <v-row justify="center">
@@ -73,6 +111,30 @@
                               >
                                 <v-icon>mdi-playlist-check</v-icon>
                               </v-btn>
+                                <router-link :to="{ 
+                                  name: 'MovieSelect', 
+                                  params: {
+                                    title: movie.title,
+                                    poster: movie.poster_path,
+                                    release_date: movie.release_date,
+                                    voteavg: movie.voteavg,
+                                    overview: movie.overview,
+                                    
+                                    movieid: movie.id,
+                                  }}"
+                                >
+                                <v-btn
+                                  absolute
+                                  color="blue"
+                                  class="white--text"
+                                  fab
+                                  top
+                                  v-bind="attrs"
+                                  v-on="on"
+                                >
+                                  <v-icon>more</v-icon>
+                                </v-btn>
+                              </router-link>
                             </template>
                             <v-card>
                               <v-card-title>Select Movie</v-card-title>
@@ -85,6 +147,7 @@
                                   >
                                     <v-list-item-title 
                                       @click="selectMovie($event), dialog = false" class = "movie-list-item">
+                                      
                                       {{ movie.title }}
                                     </v-list-item-title>
                                   </v-list-item>
@@ -99,49 +162,41 @@
                         {{ select_review_movie }}
                       </h3>
                       <div class="font-weight-light title mb-2">
-                        이 영화에 대해 한줄평 써주세요! 👉👉👉👉👉👉👉👉
+                        {{ comments }}
+                        이 영화에 대해 한줄평 써주세요! 👉👉👉👉👉👉
                       </div>
                     </v-card-text>
                   </v-card>
                 </v-hover>
             </v-col>
 
-
             <v-col>
-              {{ myComment.comment_username }}
+              
             <!-- data table 시작 -->
-              <v-text-field 
-                v-model="search" 
-                append-icon='mdi-magnify' 
-                label='Search'
-                single-line
-                
-                >
-              </v-text-field>
+          <div>
             <v-data-table
               :headers="headers"
               :items="comments"
               class="elevation-1 mx-auto my-12 mr-16"
               height="450px"
-              sort-by="created_at"
-              sort-desc='true'
-              :search="search"
             >
             <template v-slot:item.comment_user="{ item }">
               <div v-if="item.comment_username == myComment.comment_username">
                 <v-icon small @click="deleteComment(item.id)" >mdi-delete</v-icon>
               </div>
+            
             </template> 
 
             </v-data-table>
-            <v-card width='675px' class="mx-auto mr-16" >
+          </div>
+            <v-card width='775px' class="mx-auto mr-16" >
               <div style="padding-top: 10px" class="mr-16">
                 <v-text-field
                   :rules='rules'
                   counter='50'
                   v-model="myComment.content"
                   class="mx-auto ms-10"
-                  label="악성댓글은 범죄입니다. 이쁜말만 써주세요!" 
+                  label="예쁜말만 쓰기!" 
                   prepend-icon='mdi-comment-multiple-outline'>
                 </v-text-field>
               </div>
@@ -171,11 +226,19 @@
 
 <script>
 import axios from 'axios'
+import Yotube from '@/community/Yotube'
 
 export default {
   name: 'CommunityForm',
+  components: {
+    Yotube,
+  },
   data() {
     return {
+      // 오버레이 가능 ?
+      overlay: false,
+      zIndex: 100,
+
       // comment 작성 시작
       myComment: {
         comment_username: this.$store.state.username,
@@ -203,9 +266,11 @@ export default {
       dialogm1: '',
       dialog: false,
       // 끝
+      
       user_info: [],
       
       comments: JSON.parse(localStorage.getItem('comments')),
+
       movies: [],
       select_review_movie: localStorage.getItem('select_review_movie'),
       select_review_movie_poster: localStorage.getItem('select_review_movie_poster'),
@@ -217,16 +282,71 @@ export default {
     const url = 'http://127.0.0.1:8000/api/v1/movie/' // 장고의 서버주소
     const response = await this.axios.get(url)
     this.movies = response.data
+
+
+    // 만약 로컬에 저장되어 있는 무비id가 있다면
+    if (localStorage.now_movie_id) {
+      console.log('들어오나 ?')
+  
+      const comment_url = `http://127.0.0.1:8000/api/v1/movie/${localStorage.now_movie_id}/comment/`
+      const res = await this.axios.get(comment_url)
+      this.comments = res.data
+
+      // this.comments에 상응하는 유저정보도 넣어주기
+      const user_url = 'http://localhost:8000/accounts/alluserinfo/'
+      const result = await this.axios.get(user_url)
+      this.user_info = result.data
+      if (this.comments.length > 0) {
+        
+        for (let x=0; x<this.comments.length; x++) {
+          this.comments[x].created_at = this.comments[x].created_at.slice(0,10)
+          for (let y=0; y<this.user_info.length; y++) {
+            if (this.comments[x].comment_user === this.user_info[y].id) {
+              this.comments[x]['comment_username'] = this.user_info[y].username
+            }
+          }
+        }
+      }
+      console.log('들어오나 222222222222222?')
+      localStorage.setItem('comments', JSON.stringify(this.comments))
+    }
   },
+
+
+
+
   methods: {
       // 댓글 삭제 함수
-      deleteComment() {
-      console.log(event)
+      async deleteComment(id) {
+        console.log(id)
+        const delete_url = `http://127.0.0.1:8000/api/v1/movie/${this.now_movie_id}/comment/${id}/`
+        await this.axios.delete(delete_url)
+
+        this.comments = []
+        // 코멘트 불러오는거 걍 한번더 ㄱㄱ why? crated_at이랑 username도 또 처리해줘야함
+        const comment_url = `http://127.0.0.1:8000/api/v1/movie/${this.now_movie_id}/comment/`
+        const res = await this.axios.get(comment_url)
+        this.comments = res.data
+
+        // this.comments에 상응하는 유저정보도 넣어주기
+        const user_url = 'http://localhost:8000/accounts/alluserinfo/'
+        const result = await this.axios.get(user_url)
+        this.user_info = result.data
+        if (this.comments.length > 0) {
+          for (let x=0; x<this.comments.length; x++) {
+            this.comments[x].created_at = this.comments[x].created_at.slice(0,10)
+            for (let y=0; y<this.user_info.length; y++) {
+              if (this.comments[x].comment_user === this.user_info[y].id) {
+                this.comments[x]['comment_username'] = this.user_info[y].username
+              }
+            }
+          }
+        }
+        localStorage.setItem('comments', JSON.stringify(this.comments))
     },
 
     // comment 생성 함수
     async createComment() {
-      console.log('여기 앋늘어오냐?>')
       const CREATE_COMMENT_URL = `http://127.0.0.1:8000/api/v1/movie/${this.now_movie_id}/comment/`
       const data = this.myComment
       await axios.post(CREATE_COMMENT_URL, data)
@@ -234,6 +354,7 @@ export default {
 
 
       // 코멘트 불러오는거 걍 한번더 ㄱㄱ why? crated_at이랑 username도 또 처리해줘야함
+      
       const comment_url = `http://127.0.0.1:8000/api/v1/movie/${this.now_movie_id}/comment/`
       const res = await this.axios.get(comment_url)
       this.comments = res.data
@@ -242,15 +363,18 @@ export default {
       const user_url = 'http://localhost:8000/accounts/alluserinfo/'
       const result = await this.axios.get(user_url)
       this.user_info = result.data
-
-      for (let x=0; x<this.comments.length; x++) {
-        this.comments[x].created_at = this.comments[x].created_at.slice(0,10)
-        for (let y=0; y<this.user_info.length; y++) {
-          if (this.comments[x].comment_user === this.user_info[y].id) {
-            this.comments[x]['comment_username'] = this.user_info[y].username
+      if (this.comments.length > 0) {
+        for (let x=0; x<this.comments.length; x++) {
+          this.comments[x].created_at = this.comments[x].created_at.slice(0,10)
+          for (let y=0; y<this.user_info.length; y++) {
+            if (this.comments[x].comment_user === this.user_info[y].id) {
+              this.comments[x]['comment_username'] = this.user_info[y].username
+            }
           }
         }
+        
       }
+
       localStorage.setItem('comments', JSON.stringify(this.comments))
 
       //
@@ -286,12 +410,14 @@ export default {
       const user_url = 'http://localhost:8000/accounts/alluserinfo/'
       const result = await this.axios.get(user_url)
       this.user_info = result.data
-
-      for (let x=0; x<this.comments.length; x++) {
-        this.comments[x].created_at = this.comments[x].created_at.slice(0,10)
-        for (let y=0; y<this.user_info.length; y++) {
-          if (this.comments[x].comment_user === this.user_info[y].id) {
-            this.comments[x]['comment_username'] = this.user_info[y].username
+      if (this.comments.length > 0) {
+        
+        for (let x=0; x<this.comments.length; x++) {
+          this.comments[x].created_at = this.comments[x].created_at.slice(0,10)
+          for (let y=0; y<this.user_info.length; y++) {
+            if (this.comments[x].comment_user === this.user_info[y].id) {
+              this.comments[x]['comment_username'] = this.user_info[y].username
+            }
           }
         }
       }

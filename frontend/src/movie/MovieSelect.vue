@@ -81,12 +81,15 @@
                     >
                       더보기
                     </v-btn>
-                    <v-btn :to="{ name : 'Community' }"
+                    <!-- <v-btn :to="{ name : 'Community' }" -->
+                      <!-- 살짝 수정 -->
+                    <v-btn 
                       outlined
                       rounded
                       text
                       elevation = "2"
                       color="green"
+                      @click="goCommunity()"
                     >
                       리뷰 보기
                     </v-btn>
@@ -122,7 +125,11 @@
                   :class="radius"
                   height="300px"
                 >
-                  <h1>영화 예고편</h1>
+                <!-- 현식 만짐 -->
+                  <v-container>
+                    <MovieYoutube/>
+                  </v-container>
+
                 </v-card>
               </v-col>
               <v-col>
@@ -139,15 +146,34 @@
 </template>
 
 <script>
+import MovieYoutube from '@/movie/MovieYoutube'
 
 export default {
   name: 'MovieSelect',
   data() {
     return {
+      // 오버레이 현식만짐
+      overlay: false,
+      zIndex: 100,
+      // 하핫
       reveal: false,
     }
   },
+  components: {
+    MovieYoutube
+  },
+    // 여기 현식 만짐
+  created () {
+    localStorage.setItem('select_review_movie', this.title)
+  },
   methods: {
+    goCommunity() {
+      localStorage.setItem('select_review_movie', this.title)
+      localStorage.setItem('select_review_movie_poster', this.poster)
+      localStorage.setItem('now_movie_id', this.movieid)
+      this.$router.push('/community')
+    }
+    // 여기까지
   },  
   props: {
     title:{
@@ -169,8 +195,12 @@ export default {
     overview:{
       type: String,
       default: ''
+    },
+    movieid:{
+      type: String,
+      default: ''
     }
-  }
+  },
 }
 </script>
 

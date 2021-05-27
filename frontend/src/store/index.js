@@ -52,6 +52,10 @@ export default new Vuex.Store({
     },
     USER_INFO(state, userInfo) {
       state.userInfo = userInfo
+      console.log(this.state.userInfo, '1번')
+      console.log(state.username, '2번')
+      console.log(state.introduce, '3번')
+      console.log(state.id, '4번')
     }
   },
   actions: { // restAPI랑 연결 ㄱㄱ
@@ -59,20 +63,26 @@ export default new Vuex.Store({
       const USER_CREATE_URL = '/accounts/signup/'
       const data = userInfo
       const response = await axios.post(USER_CREATE_URL, data)
-  
+      
       commit('CREATE_USER', response.data)
       dispatch('AUTH_USER', data)
     },
 
-    AUTH_USER({ commit }, userInfo) {
+    AUTH_USER({ commit, dispatch }, userInfo) {
       return new Promise((resolve) => {
         const AUTH_USER_URL = '/api/token/'
         const data = userInfo
         axios.post(AUTH_USER_URL, data)
         .then((response) => {
           const token = response.data.access
+          
+          localStorage.now_movie_id = 1 // 리뷰페이지 무비 디폴트값으로 설정해주기
+          localStorage.select_review_movie = 'Those Who Wish Me Dead'
+          localStorage.select_review_movie_poster = 'https://image.tmdb.org/t/p/original/aMikd8jW6lZGmJgJ158biCjbNqZ.jpg'
+
           window.localStorage.setItem('token', token) // web 로컬스토리지에 로그인정보 저장
           commit('AUTH_USER', token)
+          dispatch('USER_INFO', data)
           resolve()
         })
       })
@@ -85,6 +95,10 @@ export default new Vuex.Store({
       localStorage.setItem('username', response.data[0].username)
       localStorage.setItem('id', response.data[0].id)
       localStorage.setItem('introduce', response.data[0].introduce)
+
+      this.state.username = response.data[0].username
+      this.state.id = response.data[0].id
+      this.state.introduce = response.data[0].introduce
       
       commit('USER_INFO', response.data)
     }
