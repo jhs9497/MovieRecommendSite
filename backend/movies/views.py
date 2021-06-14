@@ -30,28 +30,36 @@ def getGenre(request):
 
 
 def getMovie(request):
+    # n을 변수로삼고 for문을 돌려서 충분한 양의 영화정보를 DB에 저장할 수 있도록 한다.
     for n in range(1, 20):
         movieURL = f'https://api.themoviedb.org/3/discover/movie?api_key={MYKEY}&language=ko-KR&page={str(n)}'
+        # 스타트캠프 미세먼지 API 참조하며 가져오기,, 
         allMovie = requests.get(movieURL)
+        # get 'results' 찾는데 시간이 좀 걸렸음 
         datas = allMovie.json().get('results')
-        print(datas)
         for data in datas:
             Movie.objects.get_or_create(
+                # 원하는 친구들을 뽑아서 원하는 필드에 넣고
                 movie_id = data.get('id'),
                 title = data.get('original_title'),
                 overview = data.get('overview'),
                 release_date = data.get('release_date'),
                 voteavg = data.get('vote_average'),
+                # poster_path  + 하는 부분도 검색해서 알게됨
                 poster_path = "https://image.tmdb.org/t/p/original"+ data.get('poster_path'),
             )
-
+        
+            # movie와 genre의 id끼리 M:N 모델을 수립하는 과정 
+            # genre별 movie를 꺼내와야 하기 때문에 필요한 과정이다.
+            # 해당 영화의 genre 저장해주고
             genreItems = data.get('genre_ids')
+            # 지금 for문 내에 잡혀있는 movie_id의 정보들 가져온다음
             movie = Movie.objects.get(movie_id = data.get('id'))
+            # 하나의 영화에 장르ID가 여러개 있기 때문에 for문을 돌려가며 추가해줘야한다
             for i in genreItems:
                 p1 = get_object_or_404(Genre, pk=i)
+                # M:N 필드에 추가
                 movie.genres.add(p1)
-        # X = Movie.objects.get(movie_id=567189)
-        # print(X)
     return
 
 

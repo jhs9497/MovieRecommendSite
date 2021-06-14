@@ -16,8 +16,7 @@ class Movie(models.Model):
 
     # FK
     genres = models.ManyToManyField(Genre, related_name ='movie_genre')
-    like_users = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
-
+    
 
 class Comment(models.Model):
     content = models.TextField()

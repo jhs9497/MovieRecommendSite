@@ -76,9 +76,9 @@ export default new Vuex.Store({
         .then((response) => {
           const token = response.data.access
           
-          localStorage.now_movie_id = 1 // 리뷰페이지 무비 디폴트값으로 설정해주기
-          localStorage.select_review_movie = 'Those Who Wish Me Dead'
-          localStorage.select_review_movie_poster = 'https://image.tmdb.org/t/p/original/aMikd8jW6lZGmJgJ158biCjbNqZ.jpg'
+          localStorage.now_movie_id = 200 // 리뷰페이지 무비 디폴트값으로 설정해주기
+          localStorage.select_review_movie = 'After'
+          localStorage.select_review_movie_poster = 'https://image.tmdb.org/t/p/original/zTZ7Q9mAwBQoYaR8HgGbmBNp6AC.jpg'
 
           window.localStorage.setItem('token', token) // web 로컬스토리지에 로그인정보 저장
           commit('AUTH_USER', token)

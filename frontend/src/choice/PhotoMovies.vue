@@ -256,7 +256,7 @@ export default {
       console.log(movie)
       localStorage.setItem('select_review_movie', movie.title)
       localStorage.setItem('select_review_movie_poster', movie.poster_path)
-      localStorage.setItem('now_movie_id', movie.movieid)
+      localStorage.setItem('now_movie_id', movie.id)
       this.$router.push('/community')
     },
 

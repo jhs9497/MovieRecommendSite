@@ -20,7 +20,7 @@
             justify="center"
           >
             <div class="displaty-3">
-              <img style="height: 600px;" v-bind:src="banner">
+              <img style="height: 700px;" v-bind:src="banner">
             </div>
           </v-row>
         </v-sheet>
